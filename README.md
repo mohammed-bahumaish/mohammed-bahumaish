@@ -4,11 +4,9 @@
 
 - 👨‍🎓 I'm a computer engineering student,
 - 🔭 Full-Stack freelancer,
-- 🌱 currently learning everything 🤣,
 - 🐱‍💻 fast learner,I like to explore new frameworks and tools,
 - 👯 looking to collaborate with others,
-- 🥅 2021 Goals: Contribute more to Open Source projects,
-- ⚡ Fun fact: I love to play Parchisi❤ and chess♟.
+- 🥅 2022 Goals: Contribute more to Open Source projects,
 
 ### Connect with me:
 
