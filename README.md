@@ -24,3 +24,6 @@
 ![Docker](https://img.shields.io/badge/-Docker-black?style=flat-square&logo=docker)
 ![Git](https://img.shields.io/badge/-Git-black?style=flat-square&logo=git)
 ![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)
+
+
+![mohammed-gehad's GitHub stats](https://github-readme-stats.vercel.app/api?username=mohammed-gehad&theme=dark&show_icons=true)
