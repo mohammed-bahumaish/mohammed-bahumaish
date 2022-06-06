@@ -2,12 +2,10 @@
 
 ## I'm a Web Developer! 👨‍💻❤
 
-- 👨‍🎓 I'm a computer engineering student,
-- 🔭 Full-Stack freelancer,
-- 🐱‍💻 fast learner,I like to explore new frameworks and tools,
-- 👯 looking to collaborate with others,
-- 🥅 2022 Goals: Contribute more to Open Source projects,
-
+- 👨‍🎓 Computer Engineering student.
+- 🔭 Full-Stack freelancer.
+- 💻 Fast learner, I like to explore new frameworks and tools.
+- 👯 Looking to collaborate with others.
 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-000?style=flat-square&logo=typescript)
 ![Nodejs](https://img.shields.io/badge/-Nodejs-black?style=flat-square&logo=Node.js)
