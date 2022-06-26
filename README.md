@@ -1,15 +1,15 @@
-### Hi there, I'm Mohammed BaHumaish 👋
+### Hi there👋, I'm Mohammed Gehad Bahumaish.
 
 ## I'm a Web Developer! 👨‍💻
 
-- 👨‍🎓 Computer Engineering student.
-- 🔭 Full-Stack freelancer.
+-  Computer Engineering student.
+-  Full-Stack freelancer.
 
-💕
-![TypeScript](https://img.shields.io/badge/-TypeScript-000?style=flat-square&logo=typescript)
+### My favorite stack. 💕
+
+![TypeScript](https://img.shields.io/badge/-TypeScript-1c4573?style=flat-square&logo=typescript)
 ![Next.js](https://img.shields.io/badge/-Next.js-000?style=flat-square&logo=Next.js)
-![GraphQL](https://img.shields.io/badge/-GraphQL-000?style=flat-square&logo=graphql)
-![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-000?style=flat-square&logo=postgresql)
-![Docker](https://img.shields.io/badge/-Docker-black?style=flat-square&logo=docker)
-![Git](https://img.shields.io/badge/-Git-black?style=flat-square&logo=git)
-💕
+![GraphQL](https://img.shields.io/badge/-GraphQL-8d005f?style=flat-square&logo=graphql)
+![Prisma](https://img.shields.io/badge/-Prisma-1a202c?style=flat-square&logo=prisma)
+![Docker](https://img.shields.io/badge/-Docker-176199?style=flat-square&logo=docker)
+
