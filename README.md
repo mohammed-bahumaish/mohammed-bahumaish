@@ -1,12 +1,12 @@
-### Hi there👋, I'm Mohammed Gehad Bahumaish.
+#### Hi there👋, I'm Mohammed Gehad Bahumaish.
 
-## I'm a Web Developer! 👨‍💻
+### I'm a Web Developer! 👨‍💻
 
--  Computer Engineering student.
--  Full-Stack freelancer.
 -  Driven to create change, to imagine better future. 🌌
+-  Computer Engineering student & Freelancer.
 
-### My favorite stack. 💕
+
+#### My favorite tools. 💕
 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-1c4573?style=flat-square&logo=typescript)
 ![Next.js](https://img.shields.io/badge/-Next.js-000?style=flat-square&logo=Next.js)
