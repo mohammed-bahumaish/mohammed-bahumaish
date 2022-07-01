@@ -4,6 +4,7 @@
 
 -  Computer Engineering student.
 -  Full-Stack freelancer.
+-  Driven to create change, to imagine better future. 🌌
 
 ### My favorite stack. 💕
 
