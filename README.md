@@ -3,7 +3,7 @@
 ### I'm a Web Developer! 👨‍💻
 
 -  Driven to create change, to imagine better future. 🌌
--  Computer Engineering student & Freelancer.
+-  Web developer.
 
 
 #### My favorite tools. 💕
