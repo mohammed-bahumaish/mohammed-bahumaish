@@ -1,0 +1,16 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Blogs | bahumai.sh",
+    "home_page_url": "https://bahumai.sh",
+    "feed_url": "https://bahumai.sh/rss.json",
+    "description": "Hey! I'm Mohammed Bahumaish, a software engineer and open-source enthusiast. This is my personal blog where I share insights, experiences, and thoughts on web development, open-source contributions, and software engineering best practices. I focus on technologies like TypeScript, React, Next.js, and Node.js, but I also explore other interesting tech topics. Join me in my journey of continuous learning and innovation!",
+    "icon": "https://bahumai.sh/logo.png",
+    "items": [
+        {
+            "url": "https://bahumai.sh/blogs/task-scheduling",
+            "title": "Building a Simple Task Scheduling System in Next.js with a Simulated Database",
+            "summary": "Learn how to implement a basic task scheduling system in Next.js using a simulated database. This guide focuses on the core concepts of task definition, scheduling, and execution.",
+            "date_modified": "2024-08-13T00:00:00.000Z"
+        }
+    ]
+}

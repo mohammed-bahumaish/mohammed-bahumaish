@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Blogs | bahumai.sh</title>
+        <link>https://bahumai.sh</link>
+        <description>Hey! I'm Mohammed Bahumaish, a software engineer and open-source enthusiast. This is my personal blog where I share insights, experiences, and thoughts on web development, open-source contributions, and software engineering best practices. I focus on technologies like TypeScript, React, Next.js, and Node.js, but I also explore other interesting tech topics. Join me in my journey of continuous learning and innovation!</description>
+        <lastBuildDate>Tue, 13 Aug 2024 18:51:16 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <image>
+            <title>Blogs | bahumai.sh</title>
+            <url>https://bahumai.sh/logo.png</url>
+            <link>https://bahumai.sh</link>
+        </image>
+        <copyright>All rights reserved 2024, Mohammed Bahumaish</copyright>
+        <item>
+            <title><![CDATA[Building a Simple Task Scheduling System in Next.js with a Simulated Database]]></title>
+            <link>https://bahumai.sh/blogs/task-scheduling</link>
+            <guid>task-scheduling</guid>
+            <pubDate>Tue, 13 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Learn how to implement a basic task scheduling system in Next.js using a simulated database. This guide focuses on the core concepts of task definition, scheduling, and execution.]]></description>
+        </item>
+    </channel>
+</rss>
