@@ -6,7 +6,7 @@ export const experiencesConfig: Experience[] = [
     "employmentType": "Full-time",
     "company": {
       "name": "Monto Tech GmbH",
-      "url": "https://monto.io"
+      "url": "https://www.montotech.com"
     },
     "location": {
       "name": "Remote"
