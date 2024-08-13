@@ -1,6 +1,6 @@
 # Mohammed Bahumaish
 ## Software Engineer
-Cairo, Egypt | mohammed.bahumaish@gmail.com | [Portfolio] | [LinkedIn] | [GitHub]
+Cairo, Egypt | mohammed.bahumaish@gmail.com | [Portfolio](https://mohammed-bahumaish.vercel.app/) | [LinkedIn](https://www.linkedin.com/in/mohammed-ba-humaish/)
 
 ## Summary
 Hey there! I'm Mohammed, a software engineer passionate about building responsive web applications and contributing to open-source projects. I founded Prisma Editor and love solving complex problems while enhancing team productivity. 
