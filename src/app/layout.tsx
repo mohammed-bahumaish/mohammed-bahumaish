@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import Head from "next/head";
 
 const fontHeading = localFont({
   src: "../../assets/fonts/CalSans-SemiBold.woff2",
@@ -73,6 +74,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Head>
+        <meta name="google-site-verification" content="JASFKuP84nQMaTJje9zpZ6EVmipJnzcQv37h8t1Kuv4" />
+      </Head>
       <body
         className={cn(
           fontHeading.variable,

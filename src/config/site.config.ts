@@ -23,6 +23,9 @@ export const siteConfig: Site = {
     "AWS",
     "Monto",
     "ClickApps",
+    "Mohammed Gehad",
+    "محمد باحميش",
+    "محمد جهاد باحميش"
   ],
   siteUrl: "https://bahumai.sh",
   creator: {
