@@ -7,6 +7,8 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 }
 
 /** @type {import('next').NextConfig} */
-const config = {};
+const config = {
+  output: "standalone",
+};
 
 export default config;
