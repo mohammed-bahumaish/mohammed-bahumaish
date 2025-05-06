@@ -1,0 +1,173 @@
+---
+title: Building a Simple Task Scheduling System in Next.js with a Simulated Database
+publishedAt: 2024-08-13
+summary: Learn how to implement a basic task scheduling system in Next.js using a simulated database. This guide focuses on the core concepts of task definition, scheduling, and execution.
+imageName: task-scheduling.png
+categories: ["nextjs", "task-scheduling", "web-development"]
+draft: true
+---
+
+Scheduling tasks in a web application allows you to automate repetitive actions like sending notifications or updating records. In this post, we'll walk through creating a simple task scheduling system in a Next.js application using a simulated database. This approach focuses on demonstrating core concepts with minimal code.
+
+## The Concept
+
+Our task scheduling system consists of three main parts:
+
+1. **Task Definition:** Define what tasks you want to perform.
+2. **Task Scheduling:** Schedule these tasks to run at specific times.
+3. **Task Execution:** Execute the tasks when they are due.
+
+### 1. Task Definition
+
+First, we define the tasks we want our system to handle. Let's consider a simple task that logs a message:
+
+```javascript
+const registeredTasks = {
+  "log-message": async ({ message }) => {
+    console.log(message);
+    return message;
+  },
+};
+```
+
+Here, `registeredTasks` is a collection of tasks our system knows how to run. We can add more tasks as needed.
+
+### 2. Task Scheduling
+
+Next, we simulate a database with a simple array and schedule tasks by adding them to this array:
+
+```javascript
+const simulatedDatabase = [];
+
+const scheduleTask = ({ task, data, runAt }) => {
+  simulatedDatabase.push({
+    task,
+    data,
+    runAt,
+    state: "scheduled",
+  });
+};
+```
+
+This function schedules a task by storing it in our simulated database with the time it should run.
+
+### 3. Task Execution
+
+Finally, we create a function that periodically checks for tasks that are ready to run:
+
+```javascript
+const runScheduledTasks = () => {
+  const now = new Date();
+
+  simulatedDatabase.forEach(async (task) => {
+    if (task.state === "scheduled" && task.runAt <= now) {
+      try {
+        const result = await registeredTasks[task.task](task.data);
+        task.state = "completed";
+        task.result = result;
+      } catch (error) {
+        task.state = "failed";
+        task.error = error;
+      }
+    }
+  });
+};
+```
+
+This function loops through the tasks in our simulated database, runs those that are due, and updates their status.
+
+<Ideaquote>
+  While this implementation uses a simulated in-memory database, the same
+  principles apply when integrating with a real database like MongoDB,
+  PostgreSQL, or Firebase in production applications.
+</Ideaquote>
+
+## Implementing in Next.js
+
+To implement this in a Next.js application, we could create a service that initializes when the application starts:
+
+```javascript
+// lib/taskScheduler.js
+export const registeredTasks = {
+  "log-message": async ({ message }) => {
+    console.log(message);
+    return message;
+  },
+  "send-email": async ({ to, subject, body }) => {
+    // Email sending logic would go here
+    console.log(`Email sent to ${to} with subject: ${subject}`);
+    return true;
+  },
+};
+
+export const simulatedDatabase = [];
+
+export const scheduleTask = ({ task, data, runAt }) => {
+  simulatedDatabase.push({
+    id: Math.random().toString(36).substring(7),
+    task,
+    data,
+    runAt: runAt instanceof Date ? runAt : new Date(runAt),
+    state: "scheduled",
+    createdAt: new Date(),
+  });
+
+  return simulatedDatabase[simulatedDatabase.length - 1];
+};
+
+export const runScheduledTasks = () => {
+  const now = new Date();
+
+  simulatedDatabase.forEach(async (task) => {
+    if (task.state === "scheduled" && task.runAt <= now) {
+      // Mark as processing to prevent duplicate execution
+      task.state = "processing";
+
+      try {
+        if (registeredTasks[task.task]) {
+          const result = await registeredTasks[task.task](task.data);
+          task.state = "completed";
+          task.result = result;
+          task.completedAt = new Date();
+        } else {
+          throw new Error(`Task type "${task.task}" not found`);
+        }
+      } catch (error) {
+        task.state = "failed";
+        task.error = error.message;
+        task.failedAt = new Date();
+      }
+    }
+  });
+};
+```
+
+Then, we can initialize the task runner in a server component:
+
+```javascript
+// app/api/cron/route.js
+import { runScheduledTasks } from "@/lib/taskScheduler";
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  runScheduledTasks();
+  return NextResponse.json({ success: true });
+}
+```
+
+This endpoint can be called by an external cron job service like Vercel Cron or a service like Uptime Robot to periodically check and run scheduled tasks.
+
+## Conclusion
+
+By defining tasks, scheduling them, and executing them at the right time, we've built a simple yet effective task scheduling system. Although we used a simulated database, the same principles apply when integrating with a real database in production.
+
+This approach can be easily extended to handle more complex scenarios such as:
+
+- Task prioritization
+- Retrying failed tasks
+- Task dependencies
+- Distributed task execution
+
+For production use, you might want to consider existing libraries like Bull, Agenda, or node-schedule, which provide more robust solutions with features like persistence, retries, and monitoring out of the box.
+
+However, understanding the fundamentals as we've covered here gives you the knowledge to implement or customize a task scheduling system that perfectly fits your application's needs.

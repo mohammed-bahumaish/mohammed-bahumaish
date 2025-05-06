@@ -1,0 +1,296 @@
+---
+title: Building AI Agents with LlamaIndex - A Practical Guide
+publishedAt: 2024-08-15
+summary: Learn how to build sophisticated AI agents using LlamaIndex that can perform tasks, use tools, and collaborate to solve complex problems with this practical guide.
+imageName: llamaIndex.webp
+categories: ["ai", "development", "typescript", "llms"]
+draft: true
+---
+
+LlamaIndex provides a powerful and flexible framework for building sophisticated AI agents. These agents can perform tasks, use tools, and even collaborate to solve complex problems. This guide will walk you through the core concepts and demonstrate how to build and run these agents using TypeScript.
+
+## What are AI Agents with LlamaIndex?
+
+AI agents built with LlamaIndex are autonomous or semi-autonomous entities that can reason, make decisions, and take actions to achieve specific goals. They leverage Large Language Models (LLMs) for understanding and planning, and can be equipped with various tools to interact with external systems, fetch data, or perform operations.
+
+## Core Components of LlamaIndex Agents
+
+Building agents in LlamaIndex involves a few key components:
+
+### Defining an Agent: The agent() function
+
+Agents are defined using the `agent()` function. Key properties include:
+
+- `name`: A unique identifier for the agent.
+- `description`: Explains what the agent is responsible for.
+- `systemPrompt`: Instructions guiding the agent's behavior and responses.
+- `tools`: An array of tools the agent can use.
+- `llm`: The Large Language Model instance powering the agent.
+- `canHandoffTo` (for multi-agent setups): Specifies other agents this agent can pass tasks to.
+
+```typescript
+// Example: Defining a Research Agent
+const researchAgent = agent({
+  name: "ResearchAgent",
+  description:
+    "Responsible for gathering relevant information from the internet",
+  systemPrompt: `You are a research agent. Your role is to gather information from the internet using the provided tools and then transfer this information to the report agent for content creation.`,
+  tools: [wiki()], // Using a Wikipedia tool
+  canHandoffTo: [reportAgent], // Can hand off to a ReportAgent
+  llm, // An LLM instance (e.g., OpenAI)
+});
+```
+
+### Equipping Agents with Tools: The tool() function
+
+Tools allow agents to perform specific actions. You can define custom tools using the `tool()` function:
+
+- `name`: The tool's name, used by the LLM to select it.
+- `description`: Explains what the tool does and when to use it.
+- `parameters`: A Zod schema defining the inputs the tool expects.
+- `execute`: An asynchronous function containing the logic for what the tool does.
+
+```typescript
+// Example: A tool to save content to a file
+import { z } from "zod";
+import fs from "fs";
+import os from "os";
+
+const saveFileTool = tool({
+  name: "saveFile",
+  description:
+    "Save the written content into a file that can be downloaded by the user",
+  parameters: z.object({
+    content: z.string({
+      description: "The content to save into a file",
+    }),
+  }),
+  execute: async ({ content }: { content: string }) => {
+    const filePath = os.tmpdir() + "/report.md";
+    fs.writeFileSync(filePath, content);
+    return `File saved successfully at ${filePath}`;
+  },
+});
+```
+
+### LLMs: The Brains of the Operation
+
+Agents require an LLM to understand instructions, decide which tools to use, and generate responses. LlamaIndex supports various LLMs, including OpenAI, Anthropic, and local models via Ollama.
+
+```typescript
+import { openai } from "@llamaindex/openai";
+
+const llm = openai({
+  model: "gpt-4o-mini", // Specify your desired model
+});
+```
+
+<Ideaquote>
+  While the examples in this guide focus on automated execution, the
+  event-driven nature of LlamaIndex workflows offers opportunities to introduce
+  custom logic, such as waiting for human confirmation before an agent proceeds
+  with critical actions.
+</Ideaquote>
+
+## Single Agent Workflows
+
+You can create workflows with a single agent to perform specific tasks.
+
+### Creating and Running a Simple Math Agent
+
+This agent uses tools to perform addition and division.
+
+```typescript
+import { openai } from "@llamaindex/openai";
+import { agent } from "@llamaindex/workflow";
+import { tool } from "llamaindex";
+import { z } from "zod";
+
+// Tool to add two numbers
+const sumNumbers = tool({
+  name: "sumNumbers",
+  description: "Add two numbers together",
+  parameters: z.object({
+    a: z.number({ description: "First number" }),
+    b: z.number({ description: "Second number" }),
+  }),
+  execute: async ({ a, b }: { a: number; b: number }) => {
+    return a + b;
+  },
+});
+
+// Tool to divide numbers
+const divideNumbers = tool({
+  name: "divideNumbers",
+  description: "Divide first number by second number",
+  parameters: z.object({
+    a: z.number({ description: "Numerator" }),
+    b: z.number({ description: "Denominator" }),
+  }),
+  execute: async ({ a, b }: { a: number; b: number }) => {
+    if (b === 0) throw new Error("Cannot divide by zero");
+    return a / b;
+  },
+});
+
+const mathAgent = agent({
+  tools: [sumNumbers, divideNumbers],
+  llm: openai({ model: "gpt-4o-mini" }),
+  systemPrompt:
+    "You are a math helper. Use the provided tools to perform calculations.",
+});
+
+async function main() {
+  const response = await mathAgent.run("How much is 5 + 5? Then divide by 2");
+  console.log(response.data); // Outputs the final result
+}
+main();
+```
+
+This agent will first call `sumNumbers` with a=5, b=5, then use the result (10) to call `divideNumbers` with a=10, b=2.
+
+## Multi-Agent Collaboration
+
+For more complex tasks, LlamaIndex allows you to create workflows with multiple agents that can collaborate and hand off tasks.
+
+### Introducing multiAgent() for Complex Tasks
+
+The `multiAgent()` function creates a workflow from a set of agents. You specify the `agents` array and the `rootAgent` which initially receives the task.
+
+### Agent Handoff: The canHandoffTo Mechanism
+
+When defining an agent, the `canHandoffTo` property lists other agents it can delegate tasks to. LlamaIndex automatically creates a handoff tool for agents with this capability.
+
+### Example: Research and Report Generation
+
+This example features a ResearchAgent to gather information and a ReportAgent to write a blog post and save it.
+
+```typescript
+// Define the report agent first
+const reportAgent = agent({
+  name: "ReportAgent",
+  description:
+    "Responsible for crafting well-written blog posts based on research findings",
+  systemPrompt: `You are a professional writer. Your task is to create an engaging blog post using the research content provided. Once complete, save the post to a file using the saveFile tool.`,
+  tools: [saveFileTool],
+  llm,
+});
+
+// Then define the research agent that can hand off to the report agent
+const researchAgent = agent({
+  name: "ResearchAgent",
+  description:
+    "Responsible for gathering relevant information from the internet",
+  systemPrompt: `You are a research agent. Your role is to gather information from the internet using the provided tools and then transfer this information to the report agent for content creation.`,
+  tools: [wiki()],
+  canHandoffTo: [reportAgent], // ResearchAgent can hand off to ReportAgent
+  llm,
+});
+
+const workflow = multiAgent({
+  agents: [researchAgent, reportAgent],
+  rootAgent: researchAgent, // The ResearchAgent starts the process
+});
+
+async function main() {
+  const events = workflow.runStream("Write a blog post about history of LLMs");
+  // ... (event processing logic) ...
+}
+main();
+```
+
+Here, the ResearchAgent will first use the wiki tool. After gathering information, it will hand off to the ReportAgent, which will then use the saveFileTool.
+
+## Interacting with Agents: Event Streaming and Tool Execution
+
+### Understanding runStream() and Agent Events
+
+The `runStream()` method is crucial for observing an agent's step-by-step execution. It yields various events, including:
+
+- `agentToolCallEvent`: Fired when an agent decides to use a tool, detailing the tool and its parameters.
+- `agentToolCallResultEvent`: Fired after a tool has executed, providing its output.
+- `agentStreamEvent`: Contains a stream of tokens as the LLM generates its response or reasoning.
+- `agentOutputEvent`: Contains the final output of an agent's step.
+- `startAgentEvent`, `stopAgentEvent`: Mark the beginning and end of an agent's execution.
+
+```typescript
+// Example: Processing events from a workflow
+async function main() {
+  const events = workflow.runStream("Write a blog post about history of LLMs");
+  let finalResult;
+  for await (const event of events) {
+    if (agentToolCallEvent.include(event)) {
+      console.log(
+        `[Agent ${event.data.agentName}] executing tool ${event.data.toolName} with parameters ${JSON.stringify(
+          event.data.toolKwargs,
+        )}`,
+      );
+    } else if (agentToolCallResultEvent.include(event)) {
+      console.log(
+        `[Tool ${event.data.toolName}] executed with result ${event.data.toolOutput.result}`,
+      );
+    }
+    // ... handle other event types ...
+    finalResult = event; // Keep track of the last event for the final result
+  }
+  console.log("Final result:", finalResult?.data);
+}
+```
+
+### How Agents Use Tools and Perform Actions
+
+When an agent receives a task, its LLM reasons about how to achieve it. If it determines a tool is necessary, it generates a "tool call" specifying the tool's name and the arguments. LlamaIndex then executes the corresponding tool's execute function with these arguments. The result of the tool execution is then passed back to the LLM, which decides on the next step, which could be another tool call, a handoff, or generating a final response.
+
+## Advanced Example: Data Analysis with a Python Interpreter Agent
+
+LlamaIndex agents can be equipped with powerful tools, such as a Python interpreter, to perform complex data analysis tasks.
+
+```typescript
+// CSV Data as a string
+const csvData =
+  "TITLE,RELEASE_YEAR,SCORE,...\nDavid Attenborough: A Life on Our Planet,2020,9,...";
+const userQuestion = "which are the best comedies after 2010?";
+
+const interpreterTool = tool({
+  name: "interpreter",
+  description: "Execute python code in a Jupyter notebook cell...",
+  parameters: z.object({ code: z.string() }),
+  execute: async ({ code }) => {
+    console.log(
+      `To answer the user's question, call the following code:\n${code}`,
+    );
+    // In a real scenario, this would execute the Python code
+    // and return the actual result, stdout, stderr, etc.
+    return `Executed: ${code}`; // Simplified for example
+  },
+});
+
+const workflow = agent({
+  tools: [interpreterTool],
+  llm: openai({ model: "gpt-4-turbo" }),
+  systemPrompt: "You are a Python interpreter...",
+});
+
+(async () => {
+  console.log(`User question: ${userQuestion}\n`);
+  const result = await workflow.run(userQuestion, {
+    chatHistory: [
+      {
+        role: "user",
+        content: `Use data from following CSV raw contents:\n${csvData}`,
+      },
+    ],
+  });
+  console.log(result);
+})();
+```
+
+In this scenario, the agent would generate Python code to parse the CSV data (likely using a library like Pandas if available in the execution environment) and filter it according to the user's question. The interpreterTool would then execute this code.
+
+## Conclusion
+
+LlamaIndex offers a comprehensive suite for constructing capable AI agents. By defining agents, equipping them with tools, and orchestrating their collaboration in single or multi-agent workflows, developers can build applications that intelligently process information, interact with external systems, and solve complex problems.
+
+The event-driven architecture provides transparency and control over agent execution, enabling advanced human-agent interaction patterns. This approach is especially valuable for applications where complex reasoning and tool usage need to be combined with human oversight or intervention.
+
+Whether you're building a simple assistant or a complex multi-agent system, LlamaIndex provides the building blocks needed to create AI agents that are both powerful and practical.
