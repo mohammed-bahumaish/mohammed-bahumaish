@@ -24,7 +24,7 @@ export function BentoCard({
 }: BentoCardProps) {
   const cardContent = (
     <div
-      className={`group relative flex flex-col rounded-2xl border border-border-primary bg-bg-primary p-6 hover:bg-white ${
+      className={`group relative flex flex-col rounded-2xl border border-border-primary bg-bg-primary hover:bg-white ${
         hideOverflow && "overflow-hidden"
       } ${height} row-span-${rowSpan} col-span-${colSpan} ${className}`}
     >

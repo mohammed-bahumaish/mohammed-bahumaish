@@ -6,7 +6,7 @@ export function AboutMeBento() {
 
   return (
     <BentoCard height="h-[275px] md:h-[304px] lg:h-[220px]">
-      <div className="group flex h-full">
+      <div className="group flex h-full p-6">
         <div className="text-balance">
           <h2 className="mb-4 text-base font-medium">About me</h2>
           <p className="mb-2 text-balance pr-1 text-text-secondary md:pr-4">

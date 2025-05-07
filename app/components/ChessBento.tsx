@@ -322,7 +322,7 @@ export function ChessBento() {
         <div className="group-hover:from-bg-white absolute inset-y-0 left-0 z-10 w-1/5 bg-gradient-to-r from-bg-primary to-transparent"></div>
         <div className="group-hover:from-bg-white absolute inset-y-0 right-0 z-10 w-1/5 bg-gradient-to-l from-bg-primary to-transparent"></div>
         <ChessBackground />
-        <div className="z-20 flex h-full flex-col">
+        <div className="z-20 flex h-full flex-col p-6">
           <div>
             <h2 className="mb-4 text-base font-medium">
               Challenge Me on Chess.com
@@ -335,7 +335,7 @@ export function ChessBento() {
             </p>
           </div>
           <div className="mt-auto flex items-center justify-center">
-            <div className="grid grid-cols-8 grid-rows-2 gap-2">
+            <div className="grid grid-cols-8 grid-rows-2 md:gap-2">
               {backRank.map((type, i) => (
                 <ChessPiece key={`back-${i}`} type={type} />
               ))}

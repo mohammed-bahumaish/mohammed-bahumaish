@@ -8,15 +8,15 @@ export function EarlyBeginningsBento({
   linkTo?: string;
 }): React.ReactNode {
   return (
-    <BentoCard height="h-[300px]" linkTo={linkTo}>
+    <BentoCard height="md:h-[270px]" linkTo={linkTo}>
       <div className="relative flex h-full flex-col">
         <div className="group-hover:from-bg-white absolute inset-y-0 left-0 z-10 w-1/3 bg-gradient-to-r from-bg-primary to-transparent"></div>
         <div className="group-hover:from-bg-white absolute inset-y-0 right-0 z-10 w-1/3 bg-gradient-to-l from-bg-primary to-transparent"></div>
         <BackgroundPattern />
-        <div className="absolute -top-3 right-4 z-0 h-32 w-32 rounded-full bg-indigo-100/30 blur-xl"></div>
-        <div className="absolute -left-4 bottom-0 z-0 h-24 w-24 rounded-full bg-indigo-100/30 blur-xl"></div>
+        <div className="absolute -top-3 right-4 z-10 h-32 w-32 rounded-full bg-indigo-100/30 blur-xl"></div>
+        <div className="absolute -left-4 bottom-0 z-10 h-24 w-24 rounded-full bg-indigo-100/30 blur-xl"></div>
 
-        <div className="z-20 flex h-full flex-col">
+        <div className="z-20 flex h-full flex-col p-6">
           <h2 className="mb-4 text-base font-medium">Early Beginnings</h2>
 
           <p className="mb-2 text-balance text-text-secondary">
