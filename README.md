@@ -1,7 +1,7 @@
 # Mohammed Bahumaish
 
 Software Engineer - Cairo, Egypt  
-[Email](mailto:mohammed.bahumaish@gmail.com) | [LinkedIn](https://linkedin.com/in/mohammed-bahumaish) | [GitHub](https://github.com/MohammedALREAI) | [Portfolio](https://bahumaish.com)
+[Email](mailto:mohammed.bahumaish@gmail.com) | [LinkedIn](https://www.linkedin.com/in/mohammed-ba-humaish) | [Portfolio](https://bahumaish.com)
 
 I'm a software engineer with 4+ years of hands-on experience building web applications for fast-growing startups and SaaS companies. My expertise is in React, Next.js, TypeScript, and Node.js, with a strong focus on creating scalable, high-performance, and user-friendly products.
 
